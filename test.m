@@ -56,7 +56,7 @@ figure(3)
 clf reset
 transfer.plot()
 title('Porkchop plot for Earth to Mars')
-saveas(3, 'results\Earth2MarsPorkchop', 'png')
+saveas(2, 'results\Earth2MarsPorkchop', 'png')
 
 %% Test 3: patched conics fly-by
 % fly-by from Earth to Mars using a predefined transfer and the resulting
