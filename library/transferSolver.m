@@ -1,5 +1,5 @@
 classdef transferSolver
-    % Solve lambert problem
+    % Solve transfer between two bodies given the two orbits
     
     properties
         % Defining parameters
@@ -20,6 +20,7 @@ classdef transferSolver
     end
     
     methods
+        % Class constructor, provide initial and final orbits
         function obj = transferSolver(varargin)
             % Class constructor, calling conventions:
             % 1) departureOrbit, arrivalOrbit
@@ -33,6 +34,8 @@ classdef transferSolver
             end
         end
         
+        % Solve lambert problem given departure time and time of flight.
+        % Initial/final orbit are provided in constructor
         function obj = solveFixedTransfer(obj, departure, tof)
             
             obj.initialState = obj.departureOrbit.computeState(departure);
@@ -52,6 +55,8 @@ classdef transferSolver
             obj.dV = sum(obj.dVList);
         end
         
+        % Provide range of possible range for departures and time of
+        % flight. The minimum delta v transfer is saved
         function obj = computePorkChop(obj, departureRange, tofRange, doPlot)
             % Compute pork chop
             [departure,tof] = meshgrid(departureRange,tofRange);
@@ -61,7 +66,7 @@ classdef transferSolver
                 auxObj = obj; % create a copy for parallelization
                 auxObj = auxObj.solveFixedTransfer(departure(i), tof(i));
                 deltaV(i) = auxObj.dV;
-                if(mod(i,round(len/20))==0)
+                if(mod(i,round(len/10))==0)
                     disp( [num2str(round(i/len*100)) '%'] );
                 end
             end
@@ -73,10 +78,12 @@ classdef transferSolver
             % plot
             if(doPlot)
                 deltaV(deltaV>2*deltaVMin) = 2*deltaVMin;
-                figure
                 contourf(departure,tof,deltaV,'LineWidth',.1)
                 colormap(flipud(colormap))
-                colorbar
+                xlabel('time of departure (days since J2000)')
+                ylabel('time of flight(non-standard)')
+                h = colorbar;
+                ylabel(h, 'required \Deltav')
             end
         end
         

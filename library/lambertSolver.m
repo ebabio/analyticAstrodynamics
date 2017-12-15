@@ -28,6 +28,8 @@ classdef lambertSolver
             obj = computeAuxiliary(obj);
         end
            
+        % given initial and final position and time of flght use lambert's
+        % theorem to solve for the conic arch
         function obj = solve2dProblem(obj)
             tof = 24*3600*(obj.state1.julian - obj.state0.julian);
             

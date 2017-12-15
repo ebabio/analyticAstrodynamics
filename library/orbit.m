@@ -22,12 +22,14 @@ classdef orbit
     end
     
     methods
+        % Orbit object constructor:
+        % Two possible calling conventions:
+        % 1) lonAscNode, inclination, lonPeriapsis, a, e, meanA@J2000,
+        % centralBody struct
+        % 2) state object, julianDate, orbit w/ same centralBody struct
+        % 3) orbitingBody struct, centralBody struct      
         function obj = orbit(varargin)
-            % Two possible calling conventions:
-            % 1) lonAscNode, inclination, lonPeriapsis, a, e, meanA@J200,
-            % centralBody
-            % 2) state object, julianDate, orbit w/ same centralBody
-            % 3) orbitingBody, centralBody
+            
             if(nargin == 7 || nargin == 2)
                 if(nargin == 7)
                     % Initialize defining parameters
@@ -101,6 +103,7 @@ classdef orbit
             end
         end
         
+        % Compute useful orbit parameters that do not define the orbit
         function obj = computeAuxiliaryParameters(obj)
             % Initialize auxiliary parameters
             obj.p = obj.a * (1 - obj.e^2);
@@ -117,6 +120,9 @@ classdef orbit
             end
         end
         
+        % Compute the state of the orbiting body given the time instant
+        % julian: date in days elapse since J2000 epoch
+        % state0: state object
         function state0 = computeState(obj, julian)
             state0 = state();
             
@@ -144,6 +150,8 @@ classdef orbit
             state0.vVec = DCM * [state0.v; 0,;0];
         end
         
+        % orbit visualization: can differentiate between 2-d and 3-d
+        % problems
         function plot(obj)
             % Compute Orbit radius
             if(obj.e > 1)
@@ -190,8 +198,9 @@ classdef orbit
             rVec = DCM * [x; y; 0 * r];
             plot3(rVec(1,:), rVec(2,:), rVec(3,:));
             axis equal
-            grid on
             hold off
+            xlabel('x [m]')
+            ylabel('y [m]')
         end
         
     end

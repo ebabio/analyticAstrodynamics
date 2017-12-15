@@ -1,5 +1,8 @@
 classdef state
-    %Orbit implements common methods for orbits
+    % State class dual with state class:
+    % while orbit class defines orbit independent of time state class
+    % defines body state in an instant in terms of cartesian coordinates
+    % and angular coordinates in the plane of motion
     
     properties
         % Defining parameters
@@ -37,6 +40,8 @@ classdef state
             end
         end
         
+        % use cartesian components and a given orbit to find all angles of
+        % interest
         function obj = updateAngles(obj, orbit)
             hHat = orbit.hVec/orbit.h;
             rHat = obj.rVec / obj.r;
@@ -56,6 +61,7 @@ classdef state
             obj.initFlag = 2;
         end
         
+        % visualization of the state in  given instant
         function plot(obj, quiverScale)
             hold on
             scatter3(obj.rVec(1), obj.rVec(2), obj.rVec(3),'x');

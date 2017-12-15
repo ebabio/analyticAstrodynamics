@@ -19,6 +19,10 @@ Sun.radius = 695700e3;
 Mercury.gravP   = 2.2032e13;
 Mercury.a   = 0.38709893*AU2meters;
 Mercury.e = .2056;
+Mercury.lonAscNode = deg2rad(48.33167);
+Mercury.inclination = deg2rad(7.00487);
+Mercury.lonPeriapsis = deg2rad(77.45645);
+Mercury.meanLon = deg2rad(252.25084);
 
 Venus.gravP     = 3.24859e14;
 Venus.a     = 0.72333199*AU2meters;
