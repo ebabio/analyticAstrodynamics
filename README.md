@@ -6,6 +6,6 @@ Features are shown in test.m providing examples for:
 Orbit visualization
 Porkchop plot computation
 A Mars flyby
-(/results/Earth2MarsPorkchop.png)
-(/results/Earth2MarsFlybyTrajectory.png)
-(/results/MarsFlyBy.png)
+![Earth to Mars transfer porkchop plot](/results/Earth2MarsPorkchop.png)
+![Earth and Mars trajectory fly-by](/results/Earth2MarsFlybyTrajectory.png)
+![Mars fly-by trajectory](/results/MarsFlyBy.png)
